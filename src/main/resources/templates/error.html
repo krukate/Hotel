@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ошибка</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        body {
+            background: url('https://sun9-29.userapi.com/impg/X0f9NLbhMVZh4YdOemYcT-x0j1_SwbWHqn0DLA/B16GD732o-c.jpg?size=1408x704&quality=95&sign=c4e1f22a9214dca1c4aaf61493f1a4d3&type=album') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #3d4449;
+        }
+
+        .alert-danger {
+            background-color: #495057;
+            border-color: #495057;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #5a6268;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Ошибка 404</h1>
+    <div class="alert alert-danger" role="alert">Страница не найдена</div>
+    <a href="/">
+        <button type="button" class="btn btn-secondary mt-2">Назад</button>
+    </a>
+</div>
+</body>
+</html>

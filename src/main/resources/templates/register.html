@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        body {
+            background: url('https://sun9-29.userapi.com/impg/X0f9NLbhMVZh4YdOemYcT-x0j1_SwbWHqn0DLA/B16GD732o-c.jpg?size=1408x704&quality=95&sign=c4e1f22a9214dca1c4aaf61493f1a4d3&type=album') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #3d4449;
+        }
+
+        .btn-primary {
+            background-color: #3d4449;
+            border-color: #3d4449;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #30363a;
+            border-color: #30363a;
+            color: white;
+        }
+
+        .alert-success {
+            background-color: #d3d3d3;
+            border-color: #d3d3d3;
+            color: black;
+        }
+
+        .alert-danger {
+            background-color: #495057;
+            border-color: #495057;
+            color: white;
+        }
+
+        .form-label {
+            color: #3d4449;
+        }
+
+        .form-control {
+            border-color: #3d4449;
+        }
+
+        .form-control:focus {
+            border-color: #3d4449;
+            box-shadow: 0 0 0 0.2rem rgba(61, 68, 73, 0.25);
+        }
+
+        .text-danger {
+            color: #495057;
+        }
+
+        .text-center a {
+            color: #3d4449;
+            text-decoration: none;
+        }
+
+        .text-center a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <blockquote class="blockquote text-center"><h1>Регистрация</h1></blockquote>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form th:action="@{/register}" th:object="${user}" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Имя пользователя</label>
+                    <input type="text" class="form-control" id="username" th:field="*{username}"
+                           placeholder="Введите имя пользователя" required/>
+                    <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                    <div class="text-danger" th:if="${usernameError}" th:text="${usernameError}"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" id="password" th:field="*{password}"
+                           placeholder="Введите пароль" required/>
+                    <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                <div th:if="${param.registerSuccess}" class="mt-3">
+                    <div class="alert alert-success" role="alert">
+                        Регистрация прошла успешно! Вы можете войти в систему.
+                    </div>
+                </div>
+            </form>
+            <div class="mt-3 text-center">
+                <a th:href="@{/login}">Вход</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать гостя</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        body {
+            background: url('https://sun9-29.userapi.com/impg/X0f9NLbhMVZh4YdOemYcT-x0j1_SwbWHqn0DLA/B16GD732o-c.jpg?size=1408x704&quality=95&sign=c4e1f22a9214dca1c4aaf61493f1a4d3&type=album') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 80px; /* Увеличиваем отступ сверху, чтобы контент не перекрывался панелью навигации */
+        }
+
+        h1 {
+            color: #3d4449;
+        }
+
+        .btn-primary {
+            background-color: #FADADD; /* Розовый */
+            border-color: #FADADD;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #F5CAC3; /* Немного темнее розовый */
+            border-color: #F5CAC3;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #495057; /* Темно-серый */
+            border-color: #495057;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #343a40; /* Еще темнее серый */
+            border-color: #343a40;
+            color: white;
+        }
+
+        .form-control {
+            width: 100%;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Редактировать гостя</h1>
+    <form id="editGuestForm" th:object="${guest}">
+        <div class="form-group">
+            <label for="guestid">ID</label>
+            <input type="text" th:field="*{guestid}" class="form-control" id="guestid" readonly>
+        </div>
+        <div class="form-group">
+            <label for="firstname">Имя</label>
+            <input type="text" th:field="*{firstname}" class="form-control" id="firstname" placeholder="Имя">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Фамилия</label>
+            <input type="text" th:field="*{lastname}" class="form-control" id="lastname" placeholder="Фамилия">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label for="phonenumber">Телефон</label>
+            <input type="text" th:field="*{phonenumber}" class="form-control" id="phonenumber" placeholder="Телефон">
+        </div>
+        <div class="form-group">
+            <label for="checkindate">Дата заезда</label>
+            <input type="date" th:field="*{checkindate}" class="form-control" id="checkindate">
+        </div>
+        <div class="form-group">
+            <label for="checkoutdate">Дата выезда</label>
+            <input type="date" th:field="*{checkoutdate}" class="form-control" id="checkoutdate">
+        </div>
+        <div class="form-group">
+            <label for="roomid">Номер</label>
+            <select th:field="*{room.roomid}" class="form-control" id="roomid">
+                <option th:each="room : ${rooms}" th:value="${room.roomid}" th:text="${room.roomnumber}"></option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="submitForm()">Сохранить</button>
+    </form>
+    <a href="/guests">
+        <button type="button" class="btn btn-secondary mt-2">Назад</button>
+    </a>
+    <div id="errorMessages" class="mt-3"></div>
+</div>
+</body>
+<script>
+    function submitForm() {
+        const form = document.getElementById('editGuestForm');
+        const formData = new FormData(form);
+        const guestId = document.getElementById('guestid').value;
+
+        fetch(`/api/guests/${guestId}`, {
+            method: 'PATCH',
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                alert('Гость успешно обновлен');
+                location = '/guests';
+            } else {
+                return response.json().then(errors => {
+                    document.querySelectorAll('.text-danger').forEach(element => element.remove());
+
+                    for (const [field, message] of Object.entries(errors)) {
+                        const input = document.querySelector(`#${field}`);
+                        if (input) {
+                            const errorDiv = document.createElement('div');
+                            errorDiv.className = 'text-danger';
+                            errorDiv.textContent = message;
+                            input.parentNode.appendChild(errorDiv);
+                        }
+                    }
+                })
+            }
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Гостиница</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        body {
+            background: url('https://sun9-29.userapi.com/impg/X0f9NLbhMVZh4YdOemYcT-x0j1_SwbWHqn0DLA/B16GD732o-c.jpg?size=1408x704&quality=95&sign=c4e1f22a9214dca1c4aaf61493f1a4d3&type=album') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .navbar {
+            background-color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: #3d4449 !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #3d4449 !important;
+        }
+
+        .navbar .btn-outline-light:hover {
+            color: #3d4449 !important;
+            background-color: transparent;
+            border-color: #3d4449;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: -50px; /* Сдвигаем контейнер чуть выше середины */
+        }
+
+        h1 {
+            color: #3d4449;
+            margin-bottom: 150px; /* Увеличиваем отступ между заголовком и кнопками */
+        }
+
+        .btn-primary {
+            background-color: #d3d3d3; /* Светло-серый */
+            border-color: #d3d3d3;
+            color: black;
+        }
+
+        .btn-primary:hover {
+            background-color: #c0c0c0; /* Немного темнее светло-серый */
+            border-color: #c0c0c0;
+            color: black;
+        }
+
+        .btn-secondary {
+            background-color: #a9a9a9; /* Немного темнее светло-серый */
+            border-color: #a9a9a9;
+            color: black;
+        }
+
+        .btn-secondary:hover {
+            background-color: #999999; /* Еще темнее светло-серый */
+            border-color: #999999;
+            color: black;
+        }
+
+        .btn-success {
+            background-color: #777777; /* Серый */
+            border-color: #777777;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #666666; /* Немного темнее серый */
+            border-color: #666666;
+            color: white;
+        }
+
+        .btn-info {
+            background-color: #495057; /* Темно-серый */
+            border-color: #495057;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background-color: #343a40; /* Еще темнее серый */
+            border-color: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">
+            Главная страница
+        </a>
+        <div class="d-flex">
+            <a th:href="@{/admin/users}" class="btn btn-outline-light"
+               th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Управление пользователями</a>
+            <a th:href="@{/logout}" class="btn btn-outline-light">Выйти</a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <blockquote class="blockquote text-center"><h1>Информационно-справочная система гостиницы</h1></blockquote>
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <a href="/guests">
+                <button type="button" class="btn btn-primary">Информация о гостях</button>
+            </a>
+            <a href="/rooms">
+                <button type="button" class="btn btn-secondary">Информация о номерах</button>
+            </a>
+            <a href="/statistics">
+                <button type="button" class="btn btn-success">Статистика</button>
+            </a>
+            <a href="/about_author">
+                <button type="button" class="btn btn-info">Об авторе</button>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
